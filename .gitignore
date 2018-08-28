@@ -1,0 +1,12 @@
+# ignore logs
+logger/
+
+# ignore user images
+media/users_avatars/*.png
+media/users_avatars/*.jpg
+
+# ignore pycharm files
+.idea/
+
+# ignore .bat files
+*.bat

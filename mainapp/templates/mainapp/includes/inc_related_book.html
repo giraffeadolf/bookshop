@@ -1,0 +1,9 @@
+{% load staticfiles %}
+<div class="book">
+
+    <img src="{% static book.address %}" width="92.5" height="136">
+    <a class="book-link" href="{% url 'catalog:book' book.pk %}">{{book.name}}</a>
+    <p class="price">{{book.price}} р.</p>
+    <a class="buy-link" href="{% url 'basket:add' book.pk %}">В корзину</a>
+
+</div>

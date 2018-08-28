@@ -1,0 +1,37 @@
+{% extends 'adminapp/base.html' %}
+{% load staticfiles %}
+{% block content %}
+<div class="books_list">
+    <a class="btn btn-primary" href="{% url 'admin:book_create' category.pk %}" style="margin: 20px">
+        Новый продукт
+    </a>
+        {% for object in objects %}
+            <div class="card" style="margin: 20px">
+                <img src="{% static object.address %}" alt="{{ object.name }}" width="92.5" height="136">
+                <p class="book_name" style="white-space: wrap">
+                    {{ object.name|title }}
+                </p>
+                <div class="summary">
+                    <b>Цена: {{ object.price }} руб</b>
+                </div>
+                <div class="book_desc">
+                    {{ object.disc }}
+                </div>
+                <div class="book_actions">
+                <a class="btn btn-primary" href="{% url 'admin:book_read' object.pk %}" style="margin: 0 0 5px 5px">
+                    Подробнее
+                </a>
+                <a class="btn btn-primary" href="{% url 'admin:book_update' object.pk %}" style="margin: 0 0 5px 5px">
+                    Редактировать
+                </a>
+                <a class="btn btn-primary" href="{% url 'admin:book_delete' object.pk %}" style="margin: 0 0 5px 5px">
+                    Удалить
+                </a>
+                </div>
+                {% if object.is_active == False %}
+                    <p style="color: red">Не активна</p>
+                {% endif %}
+            </div>
+        {% endfor%}
+    </div>
+{% endblock %}

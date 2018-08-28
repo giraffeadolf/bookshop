@@ -1,0 +1,29 @@
+<div>
+    <ul class="sub-menu">
+
+        <a href="{% url 'catalog:category' 0 %}" class="{% if request.resolver_match.kwargs.pk == 0 %}active{% endif %}">
+            <li>Все жанры {% if request.resolver_match.kwargs.pk == 0 %}({{book_list|length}}){% endif %}</li>
+        </a>
+
+        {% for link in links_menu %}
+        <a href="{% url 'catalog:category' link.pk %}" class="{% if request.resolver_match.kwargs.pk|add:'0' == link.pk %}active{% endif %}">
+            <li>{{link.name}} {% if request.resolver_match.kwargs.pk|add:'0' == link.pk %}({{category_len|length}}){% endif %}</li>
+        </a>
+        {% endfor %}
+
+    </ul>
+    
+    <p></p>
+    
+    <ul class="sub-menu">
+      
+        <a href="#" class="filter">
+            <li>Цена: убывание</li>
+        </a>
+       
+        <a href="#" class="filter">
+            <li>Цена: возрастание</li>
+        </a>
+
+    </ul>
+</div>

@@ -1,0 +1,59 @@
+{% extends 'adminapp/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block content %}
+    <div class="users_list">
+        <a class="btn btn-primary" href="{% url 'admin:user_create' %}" style="margin: 20px">
+            Новый пользователь
+        </a>
+        <div style="display: flex; flex-wrap: wrap">
+            {% for object in object_list %}
+                <div class="card" style="margin: 20px">
+
+                    <img src="/media/{{ object.avatar|default:'users_avatars/default.svg' }}" alt="{{ object.username }}" width="150" height="150">
+                    <div class="card-body">
+                        <div class="user_role">
+                            {% if object.is_superuser %}
+                                Админитратор
+                            {% else %}
+                                Пользователь
+                            {% endif %}
+                            <a  class="btn btn-primary" href="{% url 'admin:user_update' object.pk %}">
+                                Редактировать
+                            </a>
+                            <a class="btn btn-primary" href="{% url 'admin:user_delete' object.pk %} ">
+                                Удалить
+                            </a>
+                        </div>
+                        <div class="card-title">
+                            <p><strong>{{ object.username }}</strong></p>
+                            <p>
+                                {% if object.first_name %}
+                                    <b>{{ object.first_name|title }}</b>
+                                    {% if object.last_name %}
+                                        <b>{{ object.last_name|title }}</b>
+                                    {% endif %}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="user_email">
+                            Email: {{ object.email }}
+                        </div>
+                        <div class="user_lastlogin">
+                            Logged: {{ object.last_login }}
+                        </div>
+                        {% if object.is_active == False %}
+                            <div class="user_is_active">
+                                <b style="color: red">Не активен</b>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

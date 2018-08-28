@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% endblock %}
+    {% block title %}
+    {% endblock %}
+    {% block js %}
+    {% endblock %}
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content">
+            <header>
+                <a href="/" title="На главную">
+                    <h1>Bookworm</h1>
+                </a>
+                <div class="search">
+                    <input type="search" placeholder="Поиск">
+                    <a href="#">
+                        <div class="button">
+                            <p>Искать</p>
+                        </div>
+                    </a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'auth:edit' %}">
+                        <div class="button">
+                            <p>{{ user.first_name|default:'Пользователь' }}</p>
+                        </div>
+                    </a>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                    <a href="{% url 'admin:users' %}">
+                        <div class="button">
+                            <p>Админка</p>
+                        </div>
+                    </a>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'auth:logout' %}">
+                        <div class="button">
+                            <p>Выйти</p>
+                        </div>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'auth:login' %}">
+                        <div class="button">
+                            <p>Войти</p>
+                        </div>
+                    </a>
+                    {% endif %}
+                </div>
+                <!-- Меню сайта -->
+                {% block main-menu %}
+                {% endblock %}
+            </header>
+            <hr>
+            {% block content %}
+            {% endblock %}
+        </div>
+        <!-- Копирайт -->
+        <div class="footer">
+            {% block footer-menu %}
+            {% endblock %}
+            <footer>Все права защищены &copy;2018</footer>
+        </div>
+    </div>
+</body>
+</html>

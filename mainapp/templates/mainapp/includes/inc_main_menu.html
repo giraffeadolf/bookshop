@@ -1,0 +1,30 @@
+<nav>
+   
+    <ul class="main-menu">
+       
+        <a href ="{% url 'main' %}" class="{% if request.resolver_match.url_name == 'main' %}active{% endif %}">
+        <li>Главная</li>
+        </a>
+        
+        <a href ="{% url 'catalog:category' 0 %}" class="{% if request.resolver_match.namespace == 'catalog' %}active{% endif %}">
+        <li>Каталог</li>
+        </a>
+        
+        <a href ="{% url 'shares' %}" class="{% if request.resolver_match.url_name == 'shares' %}active{% endif %}">
+        <li>Акции</li>
+        </a>
+        
+        <a href ="{% url 'basket:view' %}" class="{% if request.resolver_match.namespace == 'basket' %}active{% endif %} basket-view">
+            <li>Корзина{% if basket %}
+            <p class="basket-counter">{{basket.0.total_quantity}}</p>
+            <p class="basket-info">{{basket.0.total_quantity}} товаров на сумму {{basket.0.total_cost}} руб.</p>
+            {% endif %}</li>
+        </a>
+        
+        <a href ="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+        <li>Контакты</li>
+        </a>
+
+    </ul>
+
+</nav>

@@ -1,0 +1,31 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/user.css' %}">
+{% endblock %}
+{% block title %}
+<title>Вход</title>
+{% endblock %}
+{% block main-menu %}
+{% include 'mainapp/includes/inc_main_menu.html' %}
+{% endblock %}
+{% block content %}
+<div class="enter">
+    <h3>Вход:</h3>
+    <form action="{% url 'auth:login' %}" method="post">
+        {% csrf_token %}
+        {% if next %}
+        <input type="hidden" name="next" value="{{next}}">
+        {% endif %}
+        {{ login_form.as_p }}
+        <a href="{% url 'auth:register' %}">Зарегистрироваться</a>
+        <br>
+        <input type="reset" value="Очистить">
+        <input type="submit" value="Войти">
+    </form>
+</div>
+{% endblock %}
+{% block footer-menu %}
+{% include 'mainapp/includes/inc_footer_menu.html' %}
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+{% block title %}
+<title>Акции</title>
+{% endblock %}
+{% block main-menu %}
+{% include 'mainapp/includes/inc_main_menu.html' %}
+{% endblock %}
+{% block content %}
+
+<!-- Активные акции -->
+
+<div class="message">
+
+</div>
+
+<div class="best">
+
+    <div class="best1">
+
+        <div class="best1-1">
+
+            <h3>{{bestseller1.author}}: {{bestseller1.name}}</h3>
+            <p>{{bestseller1.disc}}</p>
+
+            <a href="{% url 'basket:add' bestseller1.pk %}">
+                <div class="button">
+
+                    <p>Добавить в корзину</p>
+                    <div class="basket"></div>
+
+                </div>
+            </a>
+
+            <a class="book-link" href="{% url 'catalog:book' bestseller1.pk %}">Подробнее ></a>
+
+        </div>
+
+        <img src="{% static bestseller1.address %}" width="185" height="272">
+
+    </div>
+
+</div>
+
+<div class="shares">
+
+        {% for book in same_books1 %}
+        {% include 'mainapp/includes/inc_related_book.html' %}
+        {% endfor %}
+
+<!--
+        {% for book in same_books2 %}
+        {% include 'mainapp/includes/inc_related_book.html' %}
+        {% endfor %}
+-->
+
+</div>
+
+<!--
+<div class="best">
+
+    <div class="best1">
+
+        <img src="{% static bestseller2.address %}" width="185" height="272">
+
+        <div class="best1-1">
+
+            <h3>{{bestseller2.author}}: {{bestseller2.name}}</h3>
+            <p>{{bestseller2.disc}}</p>
+
+            <a href="{% url 'basket:add' bestseller2.pk %}">
+                <div class="button">
+
+                    <p>Добавить в корзину</p>
+                    <div class="basket"></div>
+
+                </div>
+            </a>
+
+            <a class="book-link" href="{% url 'catalog:book' bestseller2.pk %}">Подробнее ></a>
+
+        </div>
+
+    </div>
+
+</div>
+-->
+{% endblock %}
+{% block footer-menu %}
+{% include 'mainapp/includes/inc_footer_menu.html' %}
+{% endblock %}

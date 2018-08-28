@@ -1,0 +1,77 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+{% block title %}
+<title>Bookworm</title>
+{% endblock %}
+{% block main-menu %}
+{% include 'mainapp/includes/inc_main_menu.html' %}
+{% endblock %}
+{% block content %}
+<!-- Приветственное сообщение -->
+
+<div class="message">
+
+    <p>Добро пожаловать в книжный интернет-магазин Bookworm! Огромное количество книг различных жанров, еженедельные акции и постоянные скидки на продукцию ждут Вас. Ознакомьтесь с ассортименотом во вкладке "Каталог", свяжитесь с нами в любое время во вкладке "Контакты" и не пропустите горячие предложения во вкладке "Акции".</p>
+
+</div>
+
+<!-- Бестселлеры -->
+
+<h2>Бестселлеры</h2>
+
+<div class="best">
+
+    <div class="best1">
+
+        <div class="best1-1">
+
+            <h3>{{bestseller.author}}: {{bestseller.name}}</h3>
+            <p>{{bestseller.disc}}</p>
+
+            <a href="{% url 'basket:add' bestseller.pk %}">
+                <div class="button">
+
+                    <p>Добавить в корзину</p>
+                    <div class="basket"></div>
+
+                </div>
+            </a>
+
+            <a class="book-link" href="{% url 'catalog:book' bestseller.pk %}">Подробнее ></a>
+
+        </div>
+
+        <img src="{% static bestseller.address %}" width="185" height="272">
+
+    </div>
+
+    <div class="best2">
+            {% for book in same_books %}
+            <a href="{% url 'catalog:book' book.pk %}"><img src="{% static book.address %}" width="138.75" height="204"></a>
+            {% endfor %}
+    </div>
+
+</div>
+
+<!-- Новые книги -->
+
+<div class="related">
+
+    <div class="related-h">
+        <h3>Новые товары</h3>
+        <a class="book-link" href="#">
+            <h4>Посмотреть все</h4>
+        </a>
+    </div>
+
+    <div class="related-book">
+        {% for book in new_books %}
+        {% include 'mainapp/includes/inc_related_book.html' %}
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
+{% block footer-menu %}
+{% include 'mainapp/includes/inc_footer_menu.html' %}
+{% endblock %}

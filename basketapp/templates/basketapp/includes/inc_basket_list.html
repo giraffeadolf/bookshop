@@ -1,0 +1,36 @@
+    {% load staticfiles %}
+    {% if basket_items|length != 0 %}
+    <div class="book-all-2">
+    {% for item in basket_items %}
+        <div class="book">
+
+            <img src="{% static item.book.address %}" width="92.5" height="136">
+            <a class="book-link" href="{% url 'catalog:book' item.book.pk %}">{{item.book.name}}</a>
+            <p class="price">{{item.book.price}} р.</p>
+            <p class="quantity">Количество: <input type="number" name="{{item.pk}}" min="0" value="{{item.quantity}}"></p>
+
+        </div>
+    {% endfor %}
+    </div>
+    <div class="basket-purchase">
+        <p class="basket-info">К оплате: {{basket_items.0.total_cost}} руб.</p>
+        <a href="#">
+            <div class="button">
+
+                <p>Оформить заказ</p>
+
+            </div>
+        </a>
+        <a href="{% url 'basket:remove_all' %}" method="post">
+            <div class="button">
+
+                <p>Очистить</p>
+
+            </div>
+        </a>
+    </div>
+{% else %}
+<div class="message">
+<p>Ваша корзина пуста, добавьте что-нибудь.</p>
+</div>
+{% endif %}

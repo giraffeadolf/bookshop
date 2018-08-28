@@ -1,0 +1,67 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+{% block title %}
+<title>Каталог</title>
+{% endblock %}
+{% block main-menu %}
+{% include 'mainapp/includes/inc_main_menu.html' %}
+{% endblock %}
+{% block content %}
+
+<div class="paginator">
+    {% if book_list.has_previous %}
+        <a href="{% url 'catalog:page' category.pk book_list.previous_page_number %}">
+            <
+        </a>
+    {% endif %}
+    <span class="current">страница {{ book_list.number }} из {{ book_list.paginator.num_pages }}</span>
+    {% if book_list.has_next %}
+        <a href="{% url 'catalog:page' category.pk book_list.next_page_number %}">
+            >
+        </a>
+    {% endif %}
+</div>
+
+<!-- Имеющиеся товары -->
+
+<div class="book-all-1">
+    
+    {% include 'mainapp/includes/inc_categories_menu.html' %}
+
+    <div class="book-all-2">
+        
+        {% for book in book_list %}
+            <div class="book">
+            
+                <img src="{% static book.address %}" width="92.5" height="136">
+                <a class="book-link" href="{% url 'catalog:book' book.pk %}">{{book.name}}</a>
+                <p class="price">{{book.price}} р.</p>
+                <a class="buy-link" href="{% url 'basket:add' book.pk %}">В корзину</a>
+
+            </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<div class="related">
+
+    <div class="related-h">
+        <h3>Новые товары</h3>
+        <a class="book-link" href="#">
+            <h4>Посмотреть все</h4>
+        </a>
+    </div>
+
+    <div class="related-book">
+        {% for book in new_books %}
+        {% include 'mainapp/includes/inc_related_book.html' %}
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
+{% block footer-menu %}
+{% include 'mainapp/includes/inc_footer_menu.html' %}
+{% endblock %}

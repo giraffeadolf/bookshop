@@ -1,0 +1,23 @@
+<ul class="footer-menu">
+
+    <a href="{% url 'main' %}">
+        <li>Главная</li>
+    </a>
+    <li>|</li>
+    <a href="{% url 'catalog:category' 0 %}">
+        <li>Каталог</li>
+    </a>
+    <li>|</li>
+    <a href="{% url 'shares' %}">
+        <li>Акции</li>
+    </a>
+    <li>|</li>
+    <a href="{% url 'basket:view' %}">
+        <li>Корзина</li>
+    </a>
+    <li>|</li>
+    <a href="{% url 'contact' %}">
+        <li>Контакты</li>
+    </a>
+
+</ul>

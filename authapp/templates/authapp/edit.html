@@ -1,0 +1,27 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/user.css' %}">
+{% endblock %}
+{% block title %}
+<title>Редактирование</title>
+{% endblock %}
+{% block main-menu %}
+{% include 'mainapp/includes/inc_main_menu.html' %}
+{% endblock %}
+{% block content %}
+<div class="enter">
+    <h3 class='edit-h'>Редактирование:</h3>
+    <form action="{% url 'auth:edit' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ edit_form.as_p }}
+        <input type="reset" value="Отменить">
+        <input type="submit" value="Сохранить">
+    </form>
+</div>
+<div class="user_avatar"><img src="/media/{{ user.avatar }}"></div>
+{% endblock %}
+{% block footer-menu %}
+{% include 'mainapp/includes/inc_footer_menu.html' %}
+{% endblock %}

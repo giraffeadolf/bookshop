@@ -1,0 +1,126 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+{% block title %}
+<title>{{book.name}}</title>
+{% endblock %}
+{% block main-menu %}
+{% include 'mainapp/includes/inc_main_menu.html' %}
+{% endblock %}
+{% block content %}
+<ul class="breadcrumps">
+
+    <li><a href="{% url 'catalog:category' book.category.pk %}">{{book.category.name}}</a></li>
+    <li>></li>
+    <li><a href="{% url 'catalog:book' book.pk %}">{{book.name}}</a></li>
+
+</ul>
+
+<h2>{{book.author}}: {{book.name}}</h2>
+
+<div class="book-info">
+
+    <a class="book-img" href="{% static book.address %}" target="_blank"><img src="{% static book.address %}" width="185" height="272" title="{{book.name}}"></a>
+
+    <!-- Блоки с контентом -->
+
+    <div class="char-all">
+
+        <div class="char">
+
+            <h3 class="caption">Характеристики товара</h3>
+
+            <ol>
+                <li>Автор: {{book.author}}</li>
+                <li>Издательство: {{book.publishing}}</li>
+                <li>Количество страниц: {{book.papers}}</li>
+            </ol>
+
+        </div>
+
+        <div class="char-extra">
+
+            <table>
+
+                <tr>
+                    <th colspan="2">Дополнительные характеристики</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>ID товара</td>
+                    <td>{{book.pk}}</td>
+                </tr>
+                <tr>
+                    <td>Масса</td>
+                    <td>{{book.mass}} г</td>
+                </tr>
+                <tr>
+                    <td>Размеры</td>
+                    <td>{{book.size}} мм</td>
+                </tr>
+
+            </table>
+
+            <p class="price">Цена: {{book.price}} руб.</p>
+
+            <!-- Кнопка покупки -->
+
+            <a href="{% url 'basket:add' book.pk %}">
+                <div class="button">
+
+                    <p>Добавить в корзину</p>
+                    <div class="basket"></div>
+
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="disc-all">
+
+        <div class="disc">
+
+            <h3 class="caption">Описание товара</h3>
+
+            <p>{{book.disc}}</p>
+
+        </div>
+        
+        {% if book.extra_disc %}
+        <div class="disc-extra">
+
+            <h4 class="caption">Подробное описание товара</h4>
+
+            <div class="disc-extra-text">
+
+                <p>{{book.extra_disc}}</p>
+
+            </div>
+
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- Ссылки на другие книги -->
+
+<div class="related">
+
+    <div class="related-h">
+        <h3>Похожие товары</h3>
+        <a class="book-link" href="{% url 'catalog:category' book.category.pk %}">
+            <h4>Посмотреть все</h4>
+        </a>
+    </div>
+
+    <div class="related-book">
+        {% for book in same_books %}
+        {% include 'mainapp/includes/inc_related_book.html' %}
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

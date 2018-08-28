@@ -1,0 +1,23 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+{% block title %}
+<title>Корзина</title>
+{% endblock %}
+{% block js %}
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/basket_scripts.js' %}"></script>
+{% endblock %}
+{% block main-menu %}
+{% include 'mainapp/includes/inc_main_menu.html' %}
+{% endblock %}
+{% block content %}
+
+<!-- Содержимое корзины -->
+<div class="basket_list">
+{% include 'basketapp/includes/inc_basket_list.html' %}
+</div>
+
+{% endblock %}
+{% block footer-menu %}
+{% include 'mainapp/includes/inc_footer_menu.html' %}
+{% endblock %}

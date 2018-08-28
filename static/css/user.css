@@ -1,0 +1,35 @@
+.enter {
+    width: 40%;
+    margin: 5px auto;
+    padding: 5px;
+    border: 2px solid #4364AF;
+    background-color: #9CB5EF;
+    font-family: Arial;
+    color: #4364AF;
+}
+
+.enter h3 {
+    margin: auto;
+    font-size: 2em;
+    text-align: center;
+}
+
+.enter .edit-h {
+    width: 65%;
+}
+
+.enter a {
+    color: #4364AF;
+}
+
+.enter label {
+    color: #4364AF;
+}
+
+.enter input[type="reset"],
+.enter input[type="submit"] {
+    margin-top: 5px;
+    border-radius: 5px;
+    background-color: #92EED2;
+    color: #3AAD8B;
+}
