@@ -3,8 +3,10 @@ from authapp.forms import ShopUserLoginForm, ShopUserRegistrationForm, ShopUserE
 from django.contrib import auth
 from django.urls import reverse
 from basketapp.models import Basket
+from logger.logger_config import log
 
 
+@log('Log in page is active')
 def login(request):
     basket = []
     if request.user.is_authenticated:
@@ -37,6 +39,7 @@ def logout(request):
     return HttpResponseRedirect(reverse('main'))
 
 
+@log('Registration page is active')
 def register(request):
     basket = []
     if request.user.is_authenticated:
@@ -53,6 +56,7 @@ def register(request):
     return render(request, 'authapp/register.html', content)
 
 
+@log('Editing page is active')
 def edit(request):
     basket = []
     if request.user.is_authenticated:

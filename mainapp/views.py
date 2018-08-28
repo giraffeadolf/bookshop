@@ -4,9 +4,10 @@ from basketapp.models import Basket
 from authapp.forms import ShopUserContactForm
 from django.urls import reverse
 from django.core.mail import send_mail, BadHeaderError
-import random
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import random
+from logger.logger_config import log
 
 
 def get_basket(user):
@@ -28,6 +29,7 @@ def get_same_books(bestseller):
     return same_books
 
 
+@log('Main page is active')
 def main(request):
     bestseller = get_bestseller()
     same_books = get_same_books(bestseller)
@@ -37,6 +39,7 @@ def main(request):
     return render(request, 'mainapp/index.html', content)
 
 
+@log('Basket is active')
 @login_required
 def basket_view(request):
     basket = get_basket(user=request.user)
@@ -45,6 +48,7 @@ def basket_view(request):
     return render(request, 'mainapp/basket.html', content)
 
 
+@log('Catalog is active')
 def catalog(request, pk=None, page=1):
     print(pk)
     links_menu = BookCategory.objects.filter(is_active=True)
@@ -95,6 +99,7 @@ def catalog(request, pk=None, page=1):
     return render(request, 'mainapp/catalog.html', content)
 
 
+@log('Book page is active')
 def book_page(request, pk):
     book = get_object_or_404(Book, pk=pk, is_active=True, category__is_active=True)
     same_books = Book.objects.filter(category__pk=book.category.pk, is_active=True, category__is_active=True).exclude(pk=book.pk)[:6]
@@ -111,6 +116,7 @@ def book_page(request, pk):
     return render(request, 'mainapp/book.html', content)
 
 
+@log('Contact page is active')
 def contact(request):
     basket = get_basket(user=request.user)
 
@@ -132,6 +138,7 @@ def contact(request):
     return render(request, 'mainapp/contact.html', content)
 
 
+@log('Shares page is active')
 def shares(request):
     bestseller1 = get_bestseller()
     bestseller2 = get_bestseller()
