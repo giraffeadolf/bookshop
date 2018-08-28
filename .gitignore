@@ -1,5 +1,5 @@
 # ignore logs
-logger/
+logger/*.log
 
 # ignore user images
 media/users_avatars/*.png
