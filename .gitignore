@@ -10,3 +10,4 @@ media/users_avatars/*.jpg
 
 # ignore .bat files
 *.bat
+!run.bat
